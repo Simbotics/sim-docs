@@ -218,35 +218,6 @@ for (int number = 1; number <= 10; number++) {
 
 This prints only the even numbers. The `%` operator returns the remainder after division, so an odd number has a remainder that is not `0` when divided by `2`.
 
-## FRC Connection
-
-Conditions appear constantly in robot code. For example, a robot might run its intake only while the driver holds a button:
-
-```java
-if (controller.getAButton()) {
-  intakeMotor.set(0.6);
-} else {
-  intakeMotor.set(0.0);
-}
-```
-
-WPILib checks code like this many times per second from a periodic method or command. You do not need to wrap it in your own `while` loop.
-
-You can combine conditions when an action has more than one requirement:
-
-```java
-boolean driverWantsToShoot = controller.getBButton();
-boolean shooterAtSpeed = shooterSpeed >= targetSpeed;
-
-if (driverWantsToShoot && shooterAtSpeed) {
-  feederMotor.set(0.8);
-} else {
-  feederMotor.set(0.0);
-}
-```
-
-Here, the feeder runs only when the driver presses the button **and** the shooter has reached its target speed.
-
 ## Try It Yourself
 
 1. Write a condition that prints whether a number is positive, negative, or zero.

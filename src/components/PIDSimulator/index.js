@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, { useMemo, useState } from 'react';
 import styles from './styles.module.css';
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -21,15 +21,15 @@ function calculateResponse(kp, ki, kd) {
 
     const acceleration = output * 0.75 - velocity * 0.8 - value * 0.02;
     velocity += acceleration * dt;
-    value = clamp(value + velocity * dt, 0, 75) -0.4 + ki;
+    value = clamp(value + velocity * dt, 0, 75) - 0.4 + ki;
     previousError = error;
-    points.push({time, value});
+    points.push({ time, value });
   }
 
   return points;
 }
 
-function Slider({label, value, max, step, onChange}) {
+function Slider({ label, value, max, step, onChange }) {
   return (
     <label className={styles.control}>
       <span>{label}</span>
@@ -46,7 +46,7 @@ function Slider({label, value, max, step, onChange}) {
   );
 }
 
-function Chart({points}) {
+function Chart({ points }) {
   const width = 760;
   const height = 330;
   const left = 48;
@@ -88,10 +88,10 @@ function Chart({points}) {
   );
 }
 
-export default function PIDSimulator() {
-  const [kp, setKp] = useState(1);
-  const [ki, setKi] = useState(0);
-  const [kd, setKd] = useState(0);
+export default function PIDSimulator({ p, i, d }) {
+  const [kp, setKp] = useState(p);
+  const [ki, setKi] = useState(i);
+  const [kd, setKd] = useState(d);
   const points = useMemo(() => calculateResponse(kp, ki, kd), [kp, ki, kd]);
 
   return (

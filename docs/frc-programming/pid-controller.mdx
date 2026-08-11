@@ -32,7 +32,7 @@ Move one slider at a time so you can see what each gain changes:
 
 The simulator represents a generic motor-driven mechanism. Its values are meant to build intuition and should not be copied directly to a real robot.
 
-<PIDSimulator />
+<PIDSimulator p={1} i={0} d={0} />
 
 :::info[Reading the graph]
 The dashed line is the desired setpoint. The red line shows the simulated mechanism's response. A good response reaches the setpoint quickly without moving far past it or repeatedly bouncing around it.
@@ -41,7 +41,7 @@ The dashed line is the desired setpoint. The red line shows the simulated mechan
 <details>
 <summary>What a perfect PID curve looks like</summary>
 
-![a perfect pid curve](./img/perfect-pid-curve.png)
+<PIDSimulator p={0.35} i={0.20} d={4} />
 
 </details>
 

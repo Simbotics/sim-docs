@@ -2,6 +2,8 @@
 sidebar_position: 2
 ---
 
+import JavaPlayground from '@site/src/components/JavaPlayground';
+
 # Variables and Data Types
 
 **Data** is information that a program stores and uses. In an FRC robot program, data can include a motor's speed, a sensor reading, whether a button is pressed, or a message shown to the driver.
@@ -98,6 +100,31 @@ final int CONTROLLER_PORT = 0;
 ```
 
 The Java compiler reports an error if you try to change `PI` or `CONTROLLER_PORT` because both are declared with `final`.
+
+## Try this in your browser:
+
+in the editor below, play around with these operators. Then, try to change the value of a variable and see what happens:
+
+<JavaPlayground 
+
+initialCode={`public class Main {
+  public static void main(String[] args) {
+    int a = 10;
+    int b = 3;
+
+    System.out.println("a = " + a);
+    System.out.println("b = " + b);
+
+    System.out.println("a + b = " + (a + b));
+    System.out.println("a - b = " + (a - b));
+    System.out.println("a * b = " + (a * b));
+    System.out.println("a / b = " + (a / b));
+    System.out.println("a % b = " + (a % b));
+
+    System.out.println("a is greater than b: " + (a > b));
+    System.out.println("a equals b: " + (a == b));
+  }
+}`} />
 
 ---
 

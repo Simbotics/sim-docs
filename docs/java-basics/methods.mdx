@@ -2,6 +2,8 @@
 sidebar_position: 4
 ---
 
+import JavaPlayground from '@site/src/components/JavaPlayground';
+
 # Methods
 
 A **method** is a named group of instructions. It lets us reuse code instead of copying and pasting it.
@@ -131,6 +133,74 @@ This method returns `true` when the number is positive and `false` when it is no
 :::tip[Printing and returning are different]
 `System.out.println()` shows a value in the terminal. `return` sends a value back to the code that called the method.
 :::
+
+## Try It in Your Browser
+
+You have `17` pizza slices and `5` people.
+
+Create two methods:
+
+1. `slicesPerPerson()` returns how many slices each person gets.
+2. `slicesLeftOver()` returns how many slices remain.
+
+### Starter code:
+
+<JavaPlayground 
+
+initialCode={`public class Main {
+  public static void main(String[] args) {
+    int slices = 17;
+        int people = 5;
+
+        // Call your methods here
+    }
+
+    static int slicesPerPerson(int slices, int people) {
+        // Write your code here
+        return 0;
+    }
+
+    static int slicesLeftOver(int slices, int people) {
+        // Write your code here
+        return 0;
+  }
+}`} />
+
+
+### Expected output
+
+```text
+Each person gets 3 slices.
+There are 2 slices left over.
+```
+
+<details>
+<summary>Show possible answers</summary>
+
+<JavaPlayground 
+
+initialCode={`public class Main {
+  public static void main(String[] args) {
+     int slices = 17;
+        int people = 5;
+
+        int each = slicesPerPerson(slices, people);
+        int leftOver = slicesLeftOver(slices, people);
+
+        System.out.println("Each person gets " + each + " slices.");
+        System.out.println("There are " + leftOver + " slices left over.");
+    }
+
+    static int slicesPerPerson(int slices, int people) {
+        return slices / people;
+    }
+
+    static int slicesLeftOver(int slices, int people) {
+        return slices % people;
+    }
+}`} />
+
+</details>
 
 ---
 

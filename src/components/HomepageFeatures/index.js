@@ -19,7 +19,7 @@ const FeatureList = [
     link: 'https://simbotics.github.io/sim-docs/docs/category/java-basics',
     description: (
       <>
-       <b>Java</b> is the programming language used to write the robot's code, providing the logic that controls its behavior.
+        <b>Java</b> is the programming language used to write the robot's code, providing the logic that controls its behavior.
       </>
     ),
   },
@@ -35,7 +35,7 @@ const FeatureList = [
   },
 ];
 
-function Feature({Svg, title, link, description}) {
+function Feature({ Svg, title, link, description }) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
@@ -57,7 +57,7 @@ export default function HomepageFeatures() {
       <div className="container">
         <div className="row">
           {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props}/>
+            <Feature key={idx} {...props} />
           ))}
         </div>
       </div>

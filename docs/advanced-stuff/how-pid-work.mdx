@@ -1,0 +1,187 @@
+---
+sidebar_position: 3
+title: How PID Works
+description: Build an intuitive understanding of proportional, integral, and derivative control with interactive demos.
+---
+
+import PIDSimulator from '@site/src/components/PIDSimulator';
+import PIDDroneAnimation from '@site/src/components/PIDDroneAnimation';
+
+# How PID Works
+
+A **PID controller** repeatedly adjusts a mechanism until it reaches a target. On a robot, that target might be an elevator height, an arm angle, a turning angle, or a wheel speed.
+
+We are going to use a drone as an example for expalaining PID:
+
+**imagine that a drone starts at `0` metres and must hover at `50` metres.**
+
+The controller repeats this process many times per second:
+
+1. Measure the drone's current height.
+2. Find the difference between the target and the measurement.
+3. Calculate a motor output.
+4. Apply that output and measure again.
+
+The difference is called the **error**:
+
+```text
+error = setpoint - measurement
+```
+
+The simulator graphs the drone's **height**, not its error. The dashed line is the setpoint at `50`, and the coloured line is the simulated response. Every graph is interactive, so move the sliders and observe what changes.
+
+## P: make the drone move toward the target
+
+Right now, the drone is sitting at `0` metres. We want it at `50` metres, but nothing is telling the motors of the propellers to spin.
+
+Let's start with a simple idea:
+
+> The farther the drone is from `50`, the harder the motors should push.
+
+That is what **P** does:
+
+```text
+P output = Kp * error
+```
+
+Suppose `Kp` is `0.5`:
+
+- At `0 m`, the error is `50`, so the output is `25`.
+- At `25 m`, the error is `25`, so the output is `12.5`.
+- At `45 m`, the error is `5`, so the output is only `2.5`.
+
+The drone gets a big push when it is far away and a smaller push as it gets closer. Try changing **Kp** in the demo. A larger value makes the drone react more strongly.
+
+<PIDSimulator p={0.35} i={0} d={0} />
+
+<PIDDroneAnimation p={0.35} i={0} d={0} />
+
+It looks like P should be enough—but if you read the graph (animation) carefully, you might find that there is a problem.
+
+The drone has to **fight gravity** (and mabye air resistance). As it gets closer to `50`, P gives it less and less power. Eventually, the motor output may become just strong enough to fight gravity, but not strong enough to climb any higher. The drone gets stuck below the target.
+
+This error is called **steady-state error**. P made the drone go up, but we need something to eliminate the constant error.
+## I: fix the leftover error
+
+Imagine the drone has been stuck at `47` metres for several seconds. The error is only `3` metres, so P is not giving it much help.
+
+What if the controller could say:
+
+> "We have been below the target for a while. Keep adding a little more power until we finally reach it."
+
+That is what the **I** term does. It remembers the error from previous loops and adds it up:
+
+```text
+accumulatedError += error * dt
+I output = Ki * accumulatedError
+```
+
+A tiny error may not matter for one moment. But if that same error stays there, I keeps collecting it. The longer the drone remains below the target, the more extra output I adds.
+
+This demo starts with P and I. Set **Ki** to `0` and watch where the drone stops. Then slowly increase **Ki** and see whether it reaches `50`.
+
+<PIDSimulator p={0.35} i={0.25} d={0} />
+
+<PIDDroneAnimation p={0.35} i={0.1} d={0} />
+
+Great—we fixed the leftover error. But we created another problem.
+
+While the drone was climbing, I kept storing error and adding power. That stored push does not disappear instantly when the drone reaches `50`, so the drone can fly past the target. This is called **overshoot**.
+
+Now we need a way to slow the drone down before it shoots past `50`.
+
+## D: slow down before overshooting
+
+Imagine riding in a fast car. Even if the driver stops pressing the gas at the finish line, the car will not stop instantly because of inertia, so the driver must brake **before** reaching the line.
+
+The drone has the same problem. P and I can push it toward `50`, but something needs to notice that it is approaching too quickly.
+
+That is what **D** does. It checks how quickly the error is changing:
+
+```text
+errorRate = (error - previousError) / dt
+D output = Kd * errorRate
+```
+
+When the drone rushes toward `50`, its error drops very quickly. D notices that fast change and reduces the output. You can think of D as a brake: the faster the drone approaches the target, the harder D tries to slow it down.
+
+In this demo, set **Kd** to `0` first and watch the drone overshoot. Then slowly increase **Kd** and compare the new curve.
+
+<PIDSimulator p={1} i={0.2} d={4} />
+
+<PIDDroneAnimation p={1} i={0.20} d={4} />
+
+D helps with overshoot, but it cannot fix a drone that stays below the target. That is why we still need I. Each term solves a problem left by the previous one.
+
+:::note
+A real sensor is never perfectly smooth. Because D reacts to quick changes, too much D can also make a real motor shake or jitter.
+:::
+
+## Put the three terms together
+
+A PID controller adds all three results:
+
+```text
+output = Kp * error
+       + Ki * accumulatedError
+       + Kd * errorRate
+```
+
+- **P** responds to where the mechanism is now.
+- **I** remembers error that has persisted.
+- **D** responds to how quickly the mechanism is approaching or leaving the target.
+
+### Demo: a balanced response
+
+This combination reaches the setpoint with very little overshoot. To see what each term contributes, set one gain to `0` at a time and compare the curve.
+
+<PIDSimulator p={0.35} i={0.20} d={4} />
+
+There is no universally perfect set of gains. The values above only fit this simulated mechanism; a real arm, elevator, drivetrain, or shooter will behave differently.
+
+### Demo: watch the drone move
+
+The graph above shows the response as data. This separate animation shows the same tuned response as a moving drone.
+
+<PIDDroneAnimation p={0.35} i={0.20} d={4} />
+
+## What runs on the robot
+
+The controller is just a loop. In simplified pseudocode, it looks like this:
+
+```java
+double error = setpoint - measurement;
+integral += error * dt;
+double derivative = (error - previousError) / dt;
+
+double output = kp * error
+              + ki * integral
+              + kd * derivative;
+
+motor.set(output);
+previousError = error;
+```
+
+On an FRC robot, this calculation normally runs about every `20 ms`. A sensor supplies the measurement, the PID calculation produces an output, and the motor changes the mechanism before the next loop.
+
+## The math formula 
+
+As you've learned how P, I and D works together, here's the official formula representing the PID controller:
+
+$$
+u(t) = K_p e(t) + K_i \int_0^t e(\tau)\,d\tau + K_d \frac{de(t)}{dt}
+$$
+
+Which is: (`constant p` x `the derivative of error over time`) + (`constant i` x `the integral of error over time`) + (`constant d` x `the derivative of error over time / time `)
+
+## A practical tuning order
+
+1. Set Ki and Kd to `0`.
+2. Increase Kp until the mechanism responds quickly, but not violently.
+3. Add Kd if it overshoots or oscillates.
+4. Add only enough Ki to remove a steady-state error that remains.
+5. Test small and large setpoint changes, then test with the real load on the mechanism.
+
+:::warning
+Start with low gains and a limited motor output. Keep people clear of the mechanism and be ready to disable the robot while tuning.
+:::

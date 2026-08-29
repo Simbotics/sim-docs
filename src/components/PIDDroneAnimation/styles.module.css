@@ -1,0 +1,187 @@
+.animation {
+  max-width: 620px;
+  margin: 1.5rem auto 2rem;
+  padding: 1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  background: var(--ifm-background-surface-color);
+}
+
+.playButton {
+  display: inline-flex;
+  min-width: 5.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 999px;
+  color: var(--ifm-color-primary);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.playButton:hover {
+  color: var(--ifm-color-primary-contrast-background);
+  background: var(--ifm-color-primary);
+}
+
+.playButton:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.playButton:disabled {
+  color: var(--ifm-color-emphasis-600);
+  border-color: var(--ifm-color-emphasis-300);
+  background: var(--ifm-color-emphasis-100);
+  cursor: default;
+}
+
+.flightScene {
+  position: relative;
+  height: 230px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgb(74 144 226 / 18%), rgb(74 144 226 / 3%));
+  overflow: hidden;
+}
+
+.targetLine {
+  position: absolute;
+  right: 0;
+  bottom: 61.67%;
+  left: 0;
+  border-top: 1px dashed var(--ifm-color-primary);
+}
+
+.targetLine span {
+  position: absolute;
+  z-index: 2;
+  top: -1.4rem;
+  right: 0.75rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  color: var(--ifm-color-primary-dark);
+  background: var(--ifm-background-surface-color);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.dronePosition {
+  position: absolute;
+  right: 50%;
+  bottom: var(--drone-height);
+  width: 78px;
+  filter: drop-shadow(0 4px 4px rgb(0 0 0 / 16%));
+  transform: translate(50%, 45%);
+}
+
+.drone {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+.leftRotor,
+.rightRotor {
+  fill: var(--ifm-color-emphasis-800);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.droneFlying .leftRotor,
+.droneFlying .rightRotor {
+  animation: rotorSpin 90ms linear infinite;
+}
+
+.droneFlying .rightRotor {
+  animation-direction: reverse;
+}
+
+.droneArm,
+.droneLeg {
+  fill: none;
+  stroke: var(--ifm-color-emphasis-700);
+  stroke-linecap: round;
+  stroke-width: 4;
+}
+
+.droneBody {
+  fill: var(--ifm-color-primary);
+}
+
+.droneCanopy {
+  fill: var(--ifm-color-primary-darkest);
+}
+
+.ground {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 8px;
+  background: var(--ifm-color-emphasis-300);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.8rem;
+}
+
+.readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.height {
+  color: var(--ifm-color-emphasis-600);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8rem;
+}
+
+.height strong {
+  color: var(--ifm-font-color-base);
+  font-size: 1rem;
+}
+
+.error {
+  color: var(--ifm-color-emphasis-600);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8rem;
+}
+
+.error strong {
+  color: var(--ifm-color-primary-dark);
+}
+
+@keyframes rotorSpin {
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .animation {
+    padding: 0.75rem;
+  }
+
+  .flightScene {
+    height: 210px;
+  }
+
+  .footer {
+    align-items: flex-end;
+  }
+
+  .readout {
+    flex-direction: column;
+  }
+}

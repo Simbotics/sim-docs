@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Limelight
-description: Info & tips on how to use limelight and implement vision subsystem
+description: Learn how Limelight vision supports robot pose estimation.
 ---
 A Limelight is a camera with a small computer inside it. Instead of sending every camera image to the roboRIO, the Limelight processes the images itself and sends useful results to the robot.
 
@@ -39,13 +39,13 @@ The drivetrain can estimate its position using wheel encoders and a gyro. This i
 Odometry is like walking with your eyes closed while counting your steps. It works well at first, but every small mistake gets added to the next one. Wheels can slip, the robot can be pushed, and sensors are never perfect. After enough driving, the estimated position slowly moves away from the robot's real position. This is called **drift**.
 
 <details>
-<summary>If you wonder how odometry actually works and why error(caused by drift) accumulates over time, check this video 👇🏻</ summary>
+<summary>Watch how odometry drift accumulates over time</summary>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GEZBYHVHmFQ?si=XPT36MprT-TR4ues" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GEZBYHVHmFQ?si=XPT36MprT-TR4ues" title="How odometry drift accumulates over time" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 
-</ details>
+</details>
 
-Therefore, the position might be wrong if our robot only ues gyro to precoess pose estimation.
+Therefore, the estimated position can become inaccurate if the robot relies only on wheel encoders and a gyro for pose estimation.
 The Limelight gives the robot another way to check its position. When it sees a known AprilTag, it can create a relatively accurate vision pose. So, a WPILib pose estimator combines both sources:
 
 - odometry gives fast and smooth updates;
@@ -109,10 +109,10 @@ if (visionEstimate.tagCount > 0) {
 This is the main job of a vision subsystem: get the newest camera result, reject results that are obviously unusable, and pass good measurements to the drivetrain's pose estimator.
 
 :::warning
-Do not trust every camera result automatically. Reject a result if no tags **(or less than two tags, if you want an accurate result)** were seen, and consider rejecting it while the robot is spinning extremely quickly.
+Do not trust every camera result automatically. Reject a result if no tags **(or fewer than two tags, if you want a more accurate result)** were seen, and consider rejecting it while the robot is spinning extremely quickly.
 :::
 
-Read the [MegaTag2 guide](https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-robot-localization-megatag2)  and [Limelight APIs](https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib) before preogramming a limelight.
+Read the [MegaTag2 guide](https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-robot-localization-megatag2) and [Limelight APIs](https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib) before programming a Limelight.
 
 ## Additional Resources
 

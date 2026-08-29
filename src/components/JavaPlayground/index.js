@@ -133,12 +133,10 @@ export default function JavaPlayground({ initialCode }) {
         })
 
         return () => {
-            return () => {
-                runner?.terminate();
-                worker.terminate();
+            runner?.terminate();
+            worker.terminate();
 
-                compilerRef.current = null;
-            };
+            compilerRef.current = null;
         }
     }, [assetRoot]);
 

@@ -131,57 +131,21 @@ output = Kp * error
 - **I** remembers error that has persisted.
 - **D** responds to how quickly the mechanism is approaching or leaving the target.
 
-### Demo: a balanced response
-
-This combination reaches the setpoint with very little overshoot. To see what each term contributes, set one gain to `0` at a time and compare the curve.
-
-<PIDSimulator p={0.35} i={0.20} d={4} />
-
-There is no universally perfect set of gains. The values above only fit this simulated mechanism; a real arm, elevator, drivetrain, or shooter will behave differently.
-
-### Demo: watch the drone move
-
-The graph above shows the response as data. This separate animation shows the same tuned response as a moving drone.
-
-<PIDDroneAnimation p={0.35} i={0.20} d={4} />
-
-## What runs on the robot
-
-The controller is just a loop. In simplified pseudocode, it looks like this:
-
-```java
-double error = setpoint - measurement;
-integral += error * dt;
-double derivative = (error - previousError) / dt;
-
-double output = kp * error
-              + ki * integral
-              + kd * derivative;
-
-motor.set(output);
-previousError = error;
-```
-
-On an FRC robot, this calculation normally runs about every `20 ms`. A sensor supplies the measurement, the PID calculation produces an output, and the motor changes the mechanism before the next loop.
-
-## The math formula 
-
-As you've learned how P, I and D works together, here's the official formula representing the PID controller:
+and here is the official math formula:
 
 $$
 u(t) = K_p e(t) + K_i \int_0^t e(\tau)\,d\tau + K_d \frac{de(t)}{dt}
 $$
 
-Which is: (`constant p` x `the derivative of error over time`) + (`constant i` x `the integral of error over time`) + (`constant d` x `the derivative of error over time / time `)
+### A balanced response
 
-## A practical tuning order
+This combination reaches the setpoint with very little overshoot. To see what each term contributes, set one gain to `0` at a time and compare the curve.
 
-1. Set Ki and Kd to `0`.
-2. Increase Kp until the mechanism responds quickly, but not violently.
-3. Add Kd if it overshoots or oscillates.
-4. Add only enough Ki to remove a steady-state error that remains.
-5. Test small and large setpoint changes, then test with the real load on the mechanism.
+<PIDSimulator p={0.35} i={0.20} d={4} />
 
-:::warning
-Start with low gains and a limited motor output. Keep people clear of the mechanism and be ready to disable the robot while tuning.
-:::
+<PIDDroneAnimation p={0.35} i={0.20} d={4} />
+
+There is no universally perfect set of gains. The values above only fit this simulated mechanism; a real arm, elevator, drivetrain, or shooter will behave differently.
+
+The graph above shows the response as data. This separate animation shows the same tuned response as a moving drone.
+

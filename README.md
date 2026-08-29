@@ -30,3 +30,17 @@ explanations, or adding new documentation.
 See the [How to Contribute guide](./docs/how-to-contribute.mdx) if you want to contribute to this project. Alternatively, click `Edit this page` at the bottom of every page to edit directly from GitHub
 
 Most documentation is stored in the [`docs`](./docs) directory as MDX files.
+
+## License and Credits
+
+Original Sim Docs code and documentation are available under the
+[MIT License](./LICENSE).
+
+The site includes software from TeaVM, Docusaurus, React, CodeMirror, and other
+open-source projects. Some lessons also reference or display credited material
+from official WPILib, Limelight, Git, Java, GitHub, and Visual Studio Code
+resources. Those projects, materials, names, and logos remain under their own
+licenses and ownership.
+
+See [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md) for source links,
+license information, image credits, and trademark notices.

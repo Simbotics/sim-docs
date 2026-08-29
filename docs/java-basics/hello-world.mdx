@@ -2,6 +2,8 @@
 sidebar_position: 1
 ---
 
+import JavaPlayground from '@site/src/components/JavaPlayground';
+
 # Hello World
 
 Open FRC VS Code, create a file named `Main.java`, and enter the code below:
@@ -21,3 +23,15 @@ Save the file, open a terminal if needed ([see how to open the terminal](../get-
 You should see `Hello World!` in the terminal:
 
 ![Hello World printed in the VS Code terminal](./img/print-hello-world.png)
+
+## Try this in your browser:
+
+try to change the message that is printed out.
+
+<JavaPlayground 
+
+initialCode={`public class Main {
+  public static void main(String[] args) {
+    System.out.println("Hello World!");
+  }
+}`} />

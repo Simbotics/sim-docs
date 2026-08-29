@@ -13,7 +13,7 @@ import rehypeKatex from 'rehype-katex';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Sim Docs',
-  tagline: 'teach you frc programming like youre 5 yrs old',
+  tagline: "Teaching you FRC programming like you're five years old",
   // Keep the version query in sync when replacing the favicon. Browsers cache
   // favicons aggressively, so changing the URL ensures updates appear promptly.
   favicon: 'img/favicon.ico?v=20260727',

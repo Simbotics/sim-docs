@@ -11,9 +11,9 @@ import PIDDroneAnimation from '@site/src/components/PIDDroneAnimation';
 
 A **PID controller** repeatedly adjusts a mechanism until it reaches a target. On a robot, that target might be an elevator height, an arm angle, a turning angle, or a wheel speed.
 
-We are going to use a drone as an example for expalaining PID:
+We will use a drone to explain PID:
 
-**imagine that a drone starts at `0` metres and must hover at `50` metres.**
+**Imagine that a drone starts at `0` metres and must hover at `50` metres.**
 
 The controller repeats this process many times per second:
 
@@ -30,9 +30,9 @@ error = setpoint - measurement
 
 The simulator graphs the drone's **height**, not its error. The dashed line is the setpoint at `50`, and the coloured line is the simulated response. Every graph is interactive, so move the sliders and observe what changes.
 
-## P: make the drone move toward the target
+## P: Moving the Drone Toward the Target
 
-Right now, the drone is sitting at `0` metres. We want it at `50` metres, but nothing is telling the motors of the propellers to spin.
+Right now, the drone is sitting at `0` metres. We want it at `50` metres, but nothing is telling the propeller motors to spin.
 
 Let's start with a simple idea:
 
@@ -56,12 +56,12 @@ The drone gets a big push when it is far away and a smaller push as it gets clos
 
 <PIDDroneAnimation p={0.35} i={0} d={0} />
 
-It looks like P should be enough—but if you read the graph (animation) carefully, you might find that there is a problem.
+It looks like P should be enough—but if you watch the graph and animation carefully, you might find a problem.
 
-The drone has to **fight gravity** (and mabye air resistance). As it gets closer to `50`, P gives it less and less power. Eventually, the motor output may become just strong enough to fight gravity, but not strong enough to climb any higher. The drone gets stuck below the target.
+The drone has to **fight gravity** (and maybe air resistance). As it gets closer to `50`, P gives it less and less power. Eventually, the motor output may become just strong enough to fight gravity, but not strong enough to climb any higher. The drone gets stuck below the target.
 
 This error is called **steady-state error**. P made the drone go up, but we need something to eliminate the constant error.
-## I: fix the leftover error
+## I: Eliminating the Remaining Error
 
 Imagine the drone has been stuck at `47` metres for several seconds. The error is only `3` metres, so P is not giving it much help.
 
@@ -90,7 +90,7 @@ While the drone was climbing, I kept storing error and adding power. That stored
 
 Now we need a way to slow the drone down before it shoots past `50`.
 
-## D: slow down before overshooting
+## D: Reducing Overshoot
 
 Imagine riding in a fast car. Even if the driver stops pressing the gas at the finish line, the car will not stop instantly because of inertia, so the driver must brake **before** reaching the line.
 
@@ -117,7 +117,7 @@ D helps with overshoot, but it cannot fix a drone that stays below the target. T
 A real sensor is never perfectly smooth. Because D reacts to quick changes, too much D can also make a real motor shake or jitter.
 :::
 
-## Put the three terms together
+## Combining the Three Terms
 
 A PID controller adds all three results:
 
@@ -131,7 +131,7 @@ output = Kp * error
 - **I** remembers error that has persisted.
 - **D** responds to how quickly the mechanism is approaching or leaving the target.
 
-and here is the official math formula:
+Here is the standard mathematical formula:
 
 $$
 u(t) = K_p e(t) + K_i \int_0^t e(\tau)\,d\tau + K_d \frac{de(t)}{dt}

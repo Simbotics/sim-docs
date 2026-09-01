@@ -13,7 +13,7 @@ import rehypeKatex from 'rehype-katex';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Sim Docs',
-  tagline: "Teaching you FRC programming like you're five years old",
+  tagline: "Beginner-friendly FRC programming tutorial from team 1114 Simbotics.",
   // Keep the version query in sync when replacing the favicon. Browsers cache
   // favicons aggressively, so changing the URL ensures updates appear promptly.
   favicon: 'img/favicon.ico?v=20260727',
@@ -157,7 +157,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()}  Sim Docs. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,

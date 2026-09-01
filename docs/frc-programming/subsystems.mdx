@@ -47,7 +47,9 @@ Subsystems that do not share hardware can run at the same time. The command sche
 
 ## Writing a subsystem
 
-A subsystem should own the hardware for one mechanism and provide small methods that commands can call. This example creates an intake subsystem that controls a Talon FX motor. If CAN IDs and buses are new to you, review [How the Devices Communicate](../get-ready/hardware-components#how-the-devices-communicate) first.
+A subsystem should own the hardware for one mechanism and provide small methods that commands can call. This simplified introductory example keeps the motor directly inside the subsystem so that the basic idea is easier to see. Simbot's full robot code separates hardware into IO files, as explained in [Why Does a Subsystem Have Several Files?](#why-does-a-subsystem-have-several-files) later on this page.
+
+If CAN IDs and buses are new to you, review [How the Devices Communicate](../get-ready/hardware-components#how-the-devices-communicate) first.
 
 ```java title="IntakeSubsystem.java"
 package frc.robot.subsystems;
@@ -104,10 +106,10 @@ Construct each subsystem only once. Commands should receive the existing subsyst
 
 ## Why Does a Subsystem Have Several Files?
 
-Our 2026 robot [Simbot]() Tim uses several files to define a subsystem. For examle, the Intake subsystem has:
+Our 2026 robot [Simbot Tim](https://github.com/Simbotics/2026-Simbot) uses several files to define a subsystem. For example, the Intake subsystem has:
 
 ```text
-IntakeConstants
+IntakeConstants.java
 IntakeIO.java
 IntakeIOHardware.java
 IntakeIOSim.java
@@ -127,5 +129,5 @@ These files separate **where data comes from** from **what the robot does with t
 This structure gives us benefits:
 
 - the subsystem logic does not contain vendor-specific motor-controller code;
-- hardware communication is only accessable by implementing IO;
+- hardware communication is only accessible by implementing IO;
 - hardware and simulation can use the same subsystem;

@@ -1,7 +1,5 @@
 # Sim-Docs
 
-**TODO: Need a totorial on how to wire & program a kitbot**
-
 Sim-Docs is a beginner-friendly guide to FRC programming, built with
 [Docusaurus](https://docusaurus.io/).
 

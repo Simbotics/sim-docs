@@ -101,3 +101,31 @@ private final IntakeSubsystem intake = new IntakeSubsystem();
 This creates one `IntakeSubsystem` object when `RobotContainer` is created. That object initializes the intake hardware and is the shared instance used when you configure commands and controller buttons.
 
 Construct each subsystem only once. Commands should receive the existing subsystem through their constructors instead of creating a new one. Otherwise, multiple objects could try to represent and control the same physical hardware.
+
+## Why Does a Subsystem Have Several Files?
+
+Our 2026 robot [Simbot]() Tim uses several files to define a subsystem. For examle, the Intake subsystem has:
+
+```text
+IntakeConstants
+IntakeIO.java
+IntakeIOHardware.java
+IntakeIOSim.java
+IntakeSubsystem.java
+```
+
+These files separate **where data comes from** from **what the robot does with that data**.
+
+| File | Responsibility |
+| --- | --- |
+| `IntakeIO.java` | Defines the values the subsystem can receive and the actions it can request. It is the shared contract for every implementation. |
+| `IntakeIOHardware.java` | Talks to real motors and sensors directly. Basic requests, such as applying voltages to motors, are defined here. |
+| `IntakeIOSim.java` | Produces the same inputs using a physics simulation instead of real hardware. |
+| `IntakeSubsystem.java` | Contains the mechanism's control logic. It uses the IO interface, whether it's simulation or real hardware, to provide abstractions for commands.|
+
+
+This structure gives us benefits:
+
+- the subsystem logic does not contain vendor-specific motor-controller code;
+- hardware communication is only accessable by implementing IO;
+- hardware and simulation can use the same subsystem;

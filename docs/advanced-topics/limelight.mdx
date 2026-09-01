@@ -109,7 +109,7 @@ if (visionEstimate.tagCount > 0) {
 This is the main job of a vision subsystem: get the newest camera result, reject results that are obviously unusable, and pass good measurements to the drivetrain's pose estimator.
 
 :::warning
-Do not trust every camera result automatically. Reject a result if no tags **(or fewer than two tags, if you want a more accurate result)** were seen, and consider rejecting it while the robot is spinning extremely quickly.
+Do not trust every camera result automatically. Reject a result if no tags **(or less than two tags, if you want a more accurate result)** were seen, and consider rejecting it while the robot is spinning extremely quickly.
 :::
 
 Read the [MegaTag2 guide](https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-robot-localization-megatag2) and [Limelight APIs](https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib) before programming a Limelight.

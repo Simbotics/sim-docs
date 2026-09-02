@@ -3,6 +3,7 @@ sidebar_position: 1
 title: Limelight
 description: Learn how Limelight vision supports robot pose estimation.
 ---
+
 A Limelight is a camera with a small computer inside it. Instead of sending every camera image to the roboRIO, the Limelight processes the images itself and sends useful results to the robot.
 
 For example, it can tell us:
@@ -28,7 +29,7 @@ WPILib normally places `(0, 0)` at the **blue-alliance end of the field**. Posit
 
 ![WPILib robot coordinate system showing positive X forward and positive Y left](https://docs.wpilib.org/en/stable/_images/robot-2d.svg)
 
-*The WPILib robot coordinate system. [Image source: WPILib](https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html).*
+_The WPILib robot coordinate system. [Image source: WPILib](https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html)._
 
 You can learn more from the [WPILib coordinate-system guide](https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html).
 
@@ -41,7 +42,16 @@ Odometry is like walking with your eyes closed while counting your steps. It wor
 <details>
 <summary>Watch how odometry drift accumulates over time</summary>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GEZBYHVHmFQ?si=XPT36MprT-TR4ues" title="How odometry drift accumulates over time" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/GEZBYHVHmFQ?si=XPT36MprT-TR4ues"
+  title="How odometry drift accumulates over time"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerPolicy="strict-origin-when-cross-origin"
+  allowFullScreen
+></iframe>
 
 </details>
 
@@ -59,7 +69,7 @@ An AprilTag looks a little like a QR code. Each tag has a unique ID, and the off
 
 ![Robots with AprilTags detected and their tag IDs displayed](https://docs.wpilib.org/en/stable/_images/apriltagrobots_overlay.jpg)
 
-*AprilTags detected on small robots. [Image source: WPILib](https://docs.wpilib.org/en/stable/docs/software/vision-processing/apriltag/apriltag-intro.html).*
+_AprilTags detected on small robots. [Image source: WPILib](https://docs.wpilib.org/en/stable/docs/software/vision-processing/apriltag/apriltag-intro.html)._
 
 If the Limelight knows:
 
@@ -68,8 +78,6 @@ If the Limelight knows:
 3. where the camera is mounted on the robot;
 
 then it can work backwards and estimate where the robot is.
-
-For an FRC AprilTag pipeline, choose **Fiducial Markers** as the pipeline type and **AprilTag Classic 36h11** as the tag family. See the [Limelight AprilTag guide](https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltags) for all available settings.
 
 ## MegaTag and MegaTag2
 

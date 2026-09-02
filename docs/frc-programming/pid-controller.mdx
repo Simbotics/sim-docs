@@ -56,19 +56,4 @@ error = 0.3 metres
 
 The PID controller uses this error to move the elevator upward. As the elevator gets closer to the setpoint, the error becomes smaller, so the controller reduces the motor output.
 
-## Tuning PID
-
-The values that control the strength of P, I, and D are called **gains**. Tuning means adjusting these gains until the mechanism responds well.
-
-A common starting process is:
-
-1. Set I and D to zero.
-2. Slowly increase P until the mechanism responds quickly but does not shake.
-3. Add a small amount of D if the mechanism overshoots or bounces around the target.
-4. Add I only if a small, steady error remains.
-
-:::warning
-Test PID values carefully. Start with low gains, keep the mechanism away from people, and be ready to disable the robot if it moves unexpectedly.
-:::
-
-PID values are different for every mechanism. Values that work for one robot should not be copied directly to another.
+For more information on how PID actually works, check [this](../advanced-topics/how-pid-work).
